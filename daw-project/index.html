@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SYNTHWAVE DAW — Главная</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/site.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-dot"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo"><span class="s">S</span><span class="r">YNTH</span><span class="w">W</span><span class="r">AVE</span><span class="tag">DAW</span></a>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html" class="nav-link active">Главная</a>
+    <a href="about.html" class="nav-link">О проекте</a>
+    <a href="contacts.html" class="nav-link">Контакты</a>
+    <a href="daw/index.html" class="nav-cta">Открыть DAW →</a>
+  </div>
+  <button class="nav-burger" id="nav-burger" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <canvas id="hero-canvas"></canvas>
+
+  <div class="hero-content">
+    <div class="hero-badge">◈ WEB AUDIO API · КУРСОВОЙ ПРОЕКТ 2024</div>
+    <h1 class="hero-title">
+      <span class="line1">СОЗДАЙ</span>
+      <span class="line2">СВОЙ ТРЕК</span>
+    </h1>
+    <p class="hero-sub">Браузерная DAW нового поколения</p>
+
+    <div class="hero-actions">
+      <a href="daw/index.html" class="btn-primary">✦ Создать новый проект</a>
+      <button class="btn-secondary" onclick="document.getElementById('open-file-input').click()">⬆ Открыть проект</button>
+      <input type="file" id="open-file-input" accept=".json" onchange="openProject(this)" style="display:none" />
+      <a href="about.html" class="btn-ghost">О проекте</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num" data-count="12">0</span><span class="stat-label">JS модулей</span></div>
+      <div class="stat"><span class="stat-num" data-count="6">0</span><span class="stat-label">FX эффектов</span></div>
+      <div class="stat"><span class="stat-num">∞</span><span class="stat-label">Треков</span></div>
+      <div class="stat"><span class="stat-num">WAV</span><span class="stat-label">Экспорт</span></div>
+    </div>
+  </div>
+
+  <div class="scroll-hint"><span>SCROLL</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span class="mi">STEP SEQUENCER <em>◈</em></span><span class="mi">PIANO ROLL <em>◈</em></span>
+    <span class="mi">MIXER <em>◈</em></span><span class="mi">REVERB <em>◈</em></span>
+    <span class="mi">DELAY <em>◈</em></span><span class="mi">DISTORTION <em>◈</em></span>
+    <span class="mi">ARPEGGIATOR <em>◈</em></span><span class="mi">WAV EXPORT <em>◈</em></span>
+    <span class="mi">MIDI EXPORT <em>◈</em></span><span class="mi">WEB AUDIO API <em>◈</em></span>
+    <span class="mi">STEP SEQUENCER <em>◈</em></span><span class="mi">PIANO ROLL <em>◈</em></span>
+    <span class="mi">MIXER <em>◈</em></span><span class="mi">REVERB <em>◈</em></span>
+    <span class="mi">DELAY <em>◈</em></span><span class="mi">DISTORTION <em>◈</em></span>
+    <span class="mi">ARPEGGIATOR <em>◈</em></span><span class="mi">WAV EXPORT <em>◈</em></span>
+    <span class="mi">MIDI EXPORT <em>◈</em></span><span class="mi">WEB AUDIO API <em>◈</em></span>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-label">Возможности</div>
+  <h2 class="section-title">Всё что нужно<br><span>прямо в браузере</span></h2>
+  <div class="features-grid">
+    <div class="feature-card reveal"><span class="fi">🥁</span><div class="fn">STEP SEQUENCER</div><div class="fd">16/32/64 шаговый секвенсер с velocity, swing, humanize. До 10 треков одновременно.</div></div>
+    <div class="feature-card reveal"><span class="fi">🎹</span><div class="fn">PIANO ROLL</div><div class="fd">Редактор нот с синхронным playback. Рисуй ноты любой длины — они играют вместе с барабанами.</div></div>
+    <div class="feature-card reveal"><span class="fi">🎛️</span><div class="fn">СИНТЕЗАТОР</div><div class="fd">4 осциллятора, ADSR, LFO с 4 таргетами, фильтр с резонансом, unison до 4 голосов.</div></div>
+    <div class="feature-card reveal"><span class="fi">🎚️</span><div class="fn">MIXER</div><div class="fd">Канальный микшер с фейдерами, VU-метрами, панорамой, solo и mute на каждом треке.</div></div>
+    <div class="feature-card reveal"><span class="fi">🔊</span><div class="fn">FX CHAIN</div><div class="fd">Reverb (конвольвер), Delay, Distortion, Chorus, Compressor, 3-полосный EQ.</div></div>
+    <div class="feature-card reveal"><span class="fi">📊</span><div class="fn">ВИЗУАЛИЗАТОР</div><div class="fd">4 режима: осциллограф, спектр, круговой, waterfall 3D. Реал-тайм анализ звука.</div></div>
+    <div class="feature-card reveal"><span class="fi">🎲</span><div class="fn">ARPEGGIATOR</div><div class="fd">Up/Down/Random режимы, настройка октав и gate. Строй аккорды на мини-клавиатуре.</div></div>
+    <div class="feature-card reveal"><span class="fi">💾</span><div class="fn">ЭКСПОРТ</div><div class="fd">Запись в WAV прямо в браузере. Экспорт MIDI. Сохранение проекта в JSON.</div></div>
+    <div class="feature-card reveal"><span class="fi">🎬</span><div class="fn">SCENES</div><div class="fd">Сохраняй паттерны как сцены и переключайся между ними во время выступления.</div></div>
+  </div>
+</section>
+
+<!-- RECENT -->
+<section id="recent">
+  <div class="section-label">Продолжить работу</div>
+  <h2 class="section-title">Последние <span>проекты</span></h2>
+  <div class="recent-grid" id="recent-grid"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">SYNTHWAVE DAW</div>
+  <div class="footer-links">
+    <a href="index.html" class="footer-link">Главная</a>
+    <a href="about.html" class="footer-link">О проекте</a>
+    <a href="contacts.html" class="footer-link">Контакты</a>
+    <a href="daw/index.html" class="footer-link">DAW</a>
+  </div>
+  <div class="footer-copy">© 2024 — Курсовой проект</div>
+</footer>
+
+<script src="js/site.js"></script>
+<script>
+  function openProject(input) {
+    const file = input.files[0]; if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      try {
+        JSON.parse(e.target.result);
+        localStorage.setItem('synthwave_pending_project', e.target.result);
+        window.location.href = 'daw/index.html?load=pending';
+      } catch { alert('Неверный формат файла (.json)'); }
+    };
+    reader.readAsText(file);
+  }
+
+  function loadRecent() {
+    const grid = document.getElementById('recent-grid');
+    const colors = ['#ff006e','#00f5ff','#7b00ff','#ffdd00','#00ff9d','#ff6b00'];
+    const saves = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (!key.startsWith('synthwave_save_')) continue;
+      try { saves.push({ key, ...JSON.parse(localStorage.getItem(key)) }); } catch {}
+    }
+    saves.sort((a,b) => (b.savedAt||'').localeCompare(a.savedAt||''));
+    grid.innerHTML = '';
+    if (!saves.length) {
+      grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;font-family:var(--font-mono);font-size:11px;color:var(--dim);padding:32px">Нет сохранённых проектов — создай первый!</p>';
+    }
+    saves.slice(0, 5).forEach((s, i) => {
+      const card = document.createElement('div');
+      card.className = 'project-card reveal';
+      card.innerHTML = `<div class="pc-accent" style="background:${colors[i%colors.length]}"></div><div class="pc-name">${s.name||'Без названия'}</div><div class="pc-meta"><span class="pc-bpm">${s.bpm||120} BPM</span>&nbsp;·&nbsp;${s.savedAt?new Date(s.savedAt).toLocaleDateString('ru'):'—'}</div>`;
+      card.addEventListener('click', () => { localStorage.setItem('synthwave_pending_project',localStorage.getItem(s.key)); window.location.href='daw/index.html?load=pending'; });
+      grid.appendChild(card);
+    });
+    const empty = document.createElement('div');
+    empty.className = 'project-card project-card-empty reveal';
+    empty.innerHTML = '<span style="font-size:28px;margin-bottom:6px">+</span><span>Новый проект</span>';
+    empty.addEventListener('click', () => window.location.href='daw/index.html');
+    grid.appendChild(empty);
+  }
+  loadRecent();
+
+  // Count up animation
+  document.querySelectorAll('.stat-num[data-count]').forEach(el => {
+    const target = +el.dataset.count;
+    let cur = 0;
+    const step = () => { cur = Math.min(cur + 1, target); el.textContent = cur; if (cur < target) setTimeout(step, 80); };
+    setTimeout(step, 600);
+  });
+</script>
+</body>
+</html>

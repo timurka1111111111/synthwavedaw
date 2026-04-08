@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SYNTHWAVE DAW v2.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/sequencer.css" />
+  <link rel="stylesheet" href="css/mixer.css" />
+  <link rel="stylesheet" href="css/piano.css" />
+  <link rel="stylesheet" href="css/extras.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+</head>
+<body>
+  <div id="scanlines"></div>
+  <div id="crt-glow"></div>
+
+  <!-- SPLASH -->
+  <div id="splash">
+    <div class="splash-inner">
+      <div class="splash-logo">
+        <span class="sl-s">S</span><span class="sl-ynth">YNTH</span><span class="sl-w">W</span><span class="sl-ave">AVE</span>
+      </div>
+      <div class="splash-sub">DIGITAL AUDIO WORKSTATION</div>
+      <div class="splash-ver">VERSION 2.0</div>
+      <div class="splash-bar-wrap"><div class="splash-bar" id="splash-bar"></div></div>
+      <div class="splash-status" id="splash-status">Initializing audio engine...</div>
+    </div>
+  </div>
+
+  <!-- MODAL: HELP -->
+  <div id="modal-help" class="modal hidden">
+    <div class="modal-box">
+      <div class="modal-header"><span>📖 SHORTCUTS &amp; HELP</span><button class="modal-close" data-modal="help">✕</button></div>
+      <div class="modal-body help-grid">
+        <div class="help-section">
+          <div class="help-title">TRANSPORT</div>
+          <div class="help-row"><kbd>SPACE</kbd><span>Play / Pause</span></div>
+          <div class="help-row"><kbd>ESC</kbd><span>Stop</span></div>
+          <div class="help-row"><kbd>R</kbd><span>Rewind</span></div>
+          <div class="help-row"><kbd>E</kbd><span>Toggle WAV record</span></div>
+        </div>
+        <div class="help-section">
+          <div class="help-title">SEQUENCER</div>
+          <div class="help-row"><kbd>Click</kbd><span>Toggle step</span></div>
+          <div class="help-row"><kbd>Right-click</kbd><span>Cycle velocity</span></div>
+          <div class="help-row"><kbd>S</kbd><span>Solo track</span></div>
+          <div class="help-row"><kbd>M</kbd><span>Mute track</span></div>
+        </div>
+        <div class="help-section">
+          <div class="help-title">PIANO ROLL</div>
+          <div class="help-row"><kbd>Draw</kbd><span>Click &amp; drag → add note</span></div>
+          <div class="help-row"><kbd>Erase</kbd><span>Click → delete note</span></div>
+          <div class="help-row"><kbd>Scroll</kbd><span>Navigate canvas</span></div>
+        </div>
+        <div class="help-section">
+          <div class="help-title">PROJECT</div>
+          <div class="help-row"><kbd>Ctrl+S</kbd><span>Save project</span></div>
+          <div class="help-row"><kbd>Ctrl+O</kbd><span>Load project</span></div>
+          <div class="help-row"><kbd>Ctrl+Z</kbd><span>Undo</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: PROJECT -->
+  <div id="modal-project" class="modal hidden">
+    <div class="modal-box">
+      <div class="modal-header"><span>💾 PROJECT</span><button class="modal-close" data-modal="project">✕</button></div>
+      <div class="modal-body">
+        <div class="proj-section">
+          <div class="proj-name-row">
+            <label>Project name:</label>
+            <input type="text" id="proj-name" value="My Track" />
+          </div>
+          <div class="proj-buttons">
+            <button class="proj-btn primary" id="btn-save-proj">💾 SAVE JSON</button>
+            <button class="proj-btn" id="btn-load-proj">📂 LOAD JSON</button>
+            <input type="file" id="file-load-proj" accept=".json" style="display:none" />
+            <button class="proj-btn" id="btn-save-local">🗂 SAVE TO BROWSER</button>
+          </div>
+        </div>
+        <div class="proj-section">
+          <div class="proj-section-title">BROWSER SAVES</div>
+          <div id="proj-saves-list"></div>
+        </div>
+        <div class="proj-section">
+          <div class="proj-section-title">EXPORT</div>
+          <div class="proj-buttons">
+            <button class="proj-btn" id="btn-export-midi">🎹 EXPORT MIDI</button>
+            <button class="proj-btn accent2" id="btn-export-wav2">⏺ RECORD WAV</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ARPEGGIATOR -->
+  <div id="modal-arp" class="modal hidden">
+    <div class="modal-box">
+      <div class="modal-header"><span>🎲 ARPEGGIATOR</span><button class="modal-close" data-modal="arp">✕</button></div>
+      <div class="modal-body">
+        <div class="arp-row">
+          <label>MODE</label>
+          <div class="arp-btns" id="arp-mode">
+            <button class="arp-btn active" data-val="up">UP</button>
+            <button class="arp-btn" data-val="down">DOWN</button>
+            <button class="arp-btn" data-val="updown">UP/DN</button>
+            <button class="arp-btn" data-val="random">RAND</button>
+          </div>
+        </div>
+        <div class="arp-row">
+          <label>RATE</label>
+          <div class="arp-btns" id="arp-rate">
+            <button class="arp-btn active" data-val="16">1/16</button>
+            <button class="arp-btn" data-val="8">1/8</button>
+            <button class="arp-btn" data-val="4">1/4</button>
+          </div>
+        </div>
+        <div class="arp-row">
+          <label>OCTAVES</label>
+          <input type="range" id="arp-octaves" min="1" max="4" step="1" value="1" />
+          <span class="val" id="val-arp-oct">1</span>
+        </div>
+        <div class="arp-row">
+          <label>GATE</label>
+          <input type="range" id="arp-gate" min="0.1" max="1" step="0.05" value="0.7" />
+          <span class="val" id="val-arp-gate">0.7</span>
+        </div>
+        <div class="arp-toggle-row">
+          <span>ENABLED</span>
+          <label class="toggle-switch"><input type="checkbox" id="arp-enabled" /><span class="toggle-slider"></span></label>
+        </div>
+        <div class="arp-chord-label">BUILD CHORD (click keys):</div>
+        <div class="arp-keyboard" id="arp-keyboard"></div>
+        <div class="arp-chord-display" id="arp-chord-display">No notes selected</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header id="header">
+    <div class="logo">
+      <span class="logo-s">S</span><span class="logo-ynth">YNTH</span><span class="logo-w">W</span><span class="logo-ave">AVE</span>
+      <span class="logo-daw">DAW v2</span>
+    </div>
+
+    <div class="menubar">
+      <button class="menu-btn" id="menu-project">FILE</button>
+      <button class="menu-btn" id="menu-arp">ARP</button>
+      <button class="menu-btn" id="menu-help">HELP</button>
+      <button class="daw-panel-btn" id="btn-toggle-left" style="display:none" title="Инструменты">🎛 SYNTH</button>
+      <button class="daw-panel-btn" id="btn-toggle-right" style="display:none" title="FX + визуализатор">🔊 FX</button>
+    </div>
+
+    <div class="header-controls">
+      <div class="transport">
+        <button class="btn-transport" id="btn-rewind" title="Rewind [R]">⏮</button>
+        <button class="btn-transport btn-play" id="btn-play" title="Play [SPACE]">▶</button>
+        <button class="btn-transport btn-stop" id="btn-stop" title="Stop [ESC]">■</button>
+        <button class="btn-transport btn-record" id="btn-record" title="Record">⏺</button>
+      </div>
+
+      <div class="bpm-control">
+        <label>BPM</label>
+        <input type="number" id="bpm-input" value="120" min="40" max="240" />
+        <div class="bpm-arrows">
+          <button id="bpm-up">▲</button>
+          <button id="bpm-dn">▼</button>
+        </div>
+      </div>
+
+      <div class="timesig-control">
+        <select id="timesig-num">
+          <option value="3">3</option><option value="4" selected>4</option>
+          <option value="5">5</option><option value="6">6</option><option value="7">7</option>
+        </select>
+        <span class="timesig-slash">/</span>
+        <select id="timesig-den">
+          <option value="4" selected>4</option><option value="8">8</option>
+        </select>
+      </div>
+
+      <div class="time-display" id="time-display">00:00:000</div>
+      <div class="bar-display"><span class="bar-label">BAR</span><span id="bar-counter">1.1.1</span></div>
+
+      <div class="header-right">
+        <div class="vu-master">
+          <div class="vu-bar" id="vu-l"></div>
+          <div class="vu-bar" id="vu-r"></div>
+        </div>
+        <div class="master-vol-wrap">
+          <label>MASTER</label>
+          <input type="range" id="master-vol" min="0" max="1" step="0.01" value="0.8" />
+        </div>
+        <button id="export-rec-btn" class="btn-export" title="Record WAV [E]">
+          <span class="rec-dot">●</span>
+          <span class="rec-label">EXPORT WAV</span>
+          <span class="rec-time"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div id="panel-overlay"></div>
+
+  <!-- ══ MAIN ══ -->
+  <main id="app">
+
+    <!-- LEFT PANEL -->
+    <aside id="panel-left">
+      <div class="panel-title">INSTRUMENTS <span class="panel-title-count" id="track-count">6</span></div>
+      <div class="instrument-list" id="instrument-list"></div>
+      <div class="add-track-area">
+        <button class="btn-add-track" id="btn-add-track">+ ADD</button>
+        <select id="add-track-type" class="add-track-type">
+          <option value="kick">KICK</option><option value="snare">SNARE</option>
+          <option value="hihat">HI-HAT</option><option value="openhat">OPEN HAT</option>
+          <option value="clap">CLAP</option><option value="tom">TOM</option>
+          <option value="synth">SYNTH</option><option value="bass">BASS</option>
+          <option value="pad">PAD</option><option value="lead">LEAD</option>
+        </select>
+      </div>
+
+      <!-- SYNTH with sub-tabs -->
+      <div class="synth-settings" id="synth-settings">
+        <div class="synth-tabs">
+          <button class="stab active" data-stab="osc">OSC</button>
+          <button class="stab" data-stab="env">ENV</button>
+          <button class="stab" data-stab="lfo">LFO</button>
+          <button class="stab" data-stab="filter">FILT</button>
+        </div>
+
+        <div class="stab-content active" id="stab-osc">
+          <div class="synth-row"><label>TYPE</label>
+            <select id="osc-type">
+              <option value="sawtooth">SAW</option><option value="square">SQR</option>
+              <option value="sine">SINE</option><option value="triangle">TRI</option>
+            </select>
+          </div>
+          <div class="synth-row"><label>OCT</label>
+            <select id="osc-octave">
+              <option value="-2">-2</option><option value="-1">-1</option>
+              <option value="0" selected>0</option><option value="1">+1</option><option value="2">+2</option>
+            </select>
+          </div>
+          <div class="synth-row"><label>DET</label><input type="range" id="detune" min="-50" max="50" step="1" value="0" /><span class="val" id="val-detune">0</span></div>
+          <div class="synth-row"><label>UNI</label>
+            <select id="osc-unison">
+              <option value="1">OFF</option><option value="2">x2</option><option value="3">x3</option><option value="4">x4</option>
+            </select>
+          </div>
+          <div class="synth-row"><label>SPR</label><input type="range" id="unison-spread" min="1" max="40" step="1" value="10" /><span class="val" id="val-spread">10</span></div>
+          <canvas id="osc-preview" width="180" height="40"></canvas>
+        </div>
+
+        <div class="stab-content" id="stab-env">
+          <canvas id="adsr-canvas" width="180" height="50"></canvas>
+          <div class="synth-row"><label>ATK</label><input type="range" id="env-attack" min="0.001" max="2" step="0.001" value="0.01" /><span class="val" id="val-attack">0.01</span></div>
+          <div class="synth-row"><label>DEC</label><input type="range" id="env-decay" min="0.001" max="2" step="0.001" value="0.1" /><span class="val" id="val-decay">0.10</span></div>
+          <div class="synth-row"><label>SUS</label><input type="range" id="env-sustain" min="0" max="1" step="0.01" value="0.5" /><span class="val" id="val-sustain">0.50</span></div>
+          <div class="synth-row"><label>REL</label><input type="range" id="env-release" min="0.01" max="4" step="0.01" value="0.3" /><span class="val" id="val-release">0.30</span></div>
+        </div>
+
+        <div class="stab-content" id="stab-lfo">
+          <div class="synth-row"><label>SHAPE</label>
+            <select id="lfo-shape">
+              <option value="sine">SINE</option><option value="triangle">TRI</option>
+              <option value="sawtooth">SAW</option><option value="square">SQR</option>
+            </select>
+          </div>
+          <div class="synth-row"><label>RATE</label><input type="range" id="lfo-rate" min="0.1" max="20" step="0.1" value="2" /><span class="val" id="val-lfo-rate">2.0</span></div>
+          <div class="synth-row"><label>DEPTH</label><input type="range" id="lfo-depth" min="0" max="1" step="0.01" value="0" /><span class="val" id="val-lfo-depth">0.00</span></div>
+          <div class="synth-row"><label>TARGET</label>
+            <select id="lfo-target">
+              <option value="pitch">PITCH</option><option value="filter">FILTER</option>
+              <option value="volume">VOLUME</option><option value="pan">PAN</option>
+            </select>
+          </div>
+          <canvas id="lfo-preview" width="180" height="35"></canvas>
+        </div>
+
+        <div class="stab-content" id="stab-filter">
+          <div class="synth-row"><label>TYPE</label>
+            <select id="filter-type">
+              <option value="lowpass">LPF</option><option value="highpass">HPF</option>
+              <option value="bandpass">BPF</option><option value="notch">NOTCH</option>
+            </select>
+          </div>
+          <div class="synth-row"><label>FREQ</label><input type="range" id="filter-freq" min="100" max="18000" step="100" value="8000" /><span class="val" id="val-filter">8000</span></div>
+          <div class="synth-row"><label>RES</label><input type="range" id="filter-res" min="0.1" max="20" step="0.1" value="1" /><span class="val" id="val-filter-res">1.0</span></div>
+          <div class="synth-row"><label>ENV</label><input type="range" id="filter-env" min="0" max="1" step="0.01" value="0" /><span class="val" id="val-filter-env">0.00</span></div>
+          <canvas id="filter-canvas" width="180" height="50"></canvas>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CENTER -->
+    <section id="panel-center">
+      <div class="tabs">
+        <button class="tab active" data-tab="sequencer">STEP SEQ</button>
+        <button class="tab" data-tab="piano-roll">PIANO ROLL</button>
+        <button class="tab" data-tab="mixer">MIXER</button>
+        <button class="tab" data-tab="patterns">SCENES</button>
+      </div>
+
+      <!-- STEP SEQ -->
+      <div id="tab-sequencer" class="tab-content active">
+        <div class="seq-header">
+          <div class="seq-steps-label">
+            <span>STEPS:</span>
+            <button class="seq-steps-btn active" data-steps="16">16</button>
+            <button class="seq-steps-btn" data-steps="32">32</button>
+            <button class="seq-steps-btn" data-steps="64">64</button>
+          </div>
+          <div class="seq-swing"><label>SWING</label><input type="range" id="swing" min="0" max="0.3" step="0.01" value="0" /><span class="val" id="val-swing">0%</span></div>
+          <div class="seq-swing"><label>HUM</label><input type="range" id="humanize" min="0" max="0.03" step="0.001" value="0" /><span class="val" id="val-humanize">0</span></div>
+          <button class="seq-btn" id="seq-clear-all">CLR</button>
+          <button class="seq-btn" id="seq-random">RND</button>
+          <button class="seq-btn" id="seq-undo">↩</button>
+        </div>
+        <div id="sequencer-grid"></div>
+        <div class="seq-beat-numbers" id="seq-beat-numbers"></div>
+      </div>
+
+      <!-- PIANO ROLL -->
+      <div id="tab-piano-roll" class="tab-content">
+        <div class="piano-roll-toolbar">
+          <button class="pr-tool active" id="pr-draw">✏️ DRAW</button>
+          <button class="pr-tool" id="pr-erase">🗑 ERASE</button>
+          <button class="pr-tool" id="pr-clear">CLEAR</button>
+          <div class="pr-quantize"><label>Q</label>
+            <select id="pr-quantize">
+              <option value="1">1/16</option><option value="2" selected>1/8</option><option value="4">1/4</option>
+            </select>
+          </div>
+          <div class="pr-zoom"><label>ZOOM</label><input type="range" id="pr-zoom" min="1" max="4" step="0.5" value="2" /></div>
+          <div class="pr-octave">
+            <button id="pr-oct-dn">–</button><span id="pr-oct-label">OCT 4</span><button id="pr-oct-up">+</button>
+          </div>
+        </div>
+        <div id="piano-roll-wrap">
+          <div id="piano-keys-sidebar"></div>
+          <div id="piano-roll-canvas-wrap"><canvas id="piano-roll-canvas"></canvas></div>
+        </div>
+      </div>
+
+      <!-- MIXER -->
+      <div id="tab-mixer" class="tab-content">
+        <div id="mixer-channels"></div>
+        <div class="mixer-master-strip">
+          <div class="mixer-channel master">
+            <div class="ch-label">MASTER</div>
+            <div class="ch-fader-wrap">
+              <div class="ch-vu-pair">
+                <div class="ch-vu" id="mx-vu-master-l"></div>
+                <div class="ch-vu" id="mx-vu-master-r"></div>
+              </div>
+              <input type="range" class="ch-fader" id="mx-fader-master" orient="vertical" min="0" max="1.5" step="0.01" value="1" />
+            </div>
+            <span class="ch-db" id="mx-db-master">0 dB</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENES / PATTERNS -->
+      <div id="tab-patterns" class="tab-content">
+        <div class="patterns-toolbar">
+          <button class="tm-btn" id="pat-save">💾 SAVE CURRENT → NEW SCENE</button>
+          <span class="tm-hint">Scenes store the full step pattern for all tracks</span>
+        </div>
+        <div class="patterns-grid" id="patterns-grid"></div>
+      </div>
+    </section>
+
+    <!-- RIGHT PANEL -->
+    <aside id="panel-right">
+      <div class="panel-title">FX CHAIN</div>
+      <div class="fx-chain" id="fx-chain">
+        <div class="fx-unit">
+          <div class="fx-title">REVERB <label class="toggle-switch"><input type="checkbox" id="reverb-on" checked /><span class="toggle-slider"></span></label></div>
+          <div class="fx-row"><label>SIZE</label><input type="range" id="reverb-size" min="0.1" max="0.99" step="0.01" value="0.5" /><span class="val" id="val-reverb-size">0.50</span></div>
+          <div class="fx-row"><label>WET</label><input type="range" id="reverb-wet" min="0" max="1" step="0.01" value="0.3" /><span class="val" id="val-reverb-wet">0.30</span></div>
+        </div>
+        <div class="fx-unit">
+          <div class="fx-title">DELAY <label class="toggle-switch"><input type="checkbox" id="delay-on" /><span class="toggle-slider"></span></label></div>
+          <div class="fx-row"><label>TIME</label><input type="range" id="delay-time" min="0.05" max="1" step="0.01" value="0.25" /><span class="val" id="val-delay-time">0.25</span></div>
+          <div class="fx-row"><label>FEED</label><input type="range" id="delay-feed" min="0" max="0.95" step="0.01" value="0.4" /><span class="val" id="val-delay-feed">0.40</span></div>
+          <div class="fx-row"><label>WET</label><input type="range" id="delay-wet" min="0" max="1" step="0.01" value="0.3" /><span class="val" id="val-delay-wet">0.30</span></div>
+        </div>
+        <div class="fx-unit">
+          <div class="fx-title">DISTORTION <label class="toggle-switch"><input type="checkbox" id="dist-on" /><span class="toggle-slider"></span></label></div>
+          <div class="fx-row"><label>DRIVE</label><input type="range" id="dist-drive" min="0" max="400" step="1" value="50" /><span class="val" id="val-dist-drive">50</span></div>
+          <div class="fx-row"><label>WET</label><input type="range" id="dist-wet" min="0" max="1" step="0.01" value="0.5" /><span class="val" id="val-dist-wet">0.50</span></div>
+        </div>
+        <div class="fx-unit">
+          <div class="fx-title">CHORUS <label class="toggle-switch"><input type="checkbox" id="chorus-on" /><span class="toggle-slider"></span></label></div>
+          <div class="fx-row"><label>RATE</label><input type="range" id="chorus-rate" min="0.1" max="8" step="0.1" value="1.5" /><span class="val" id="val-chorus-rate">1.5</span></div>
+          <div class="fx-row"><label>DEPTH</label><input type="range" id="chorus-depth" min="0" max="0.02" step="0.001" value="0.003" /><span class="val" id="val-chorus-depth">0.003</span></div>
+        </div>
+        <div class="fx-unit">
+          <div class="fx-title">COMPRESSOR <label class="toggle-switch"><input type="checkbox" id="comp-on" /><span class="toggle-slider"></span></label></div>
+          <div class="fx-row"><label>THR</label><input type="range" id="comp-thresh" min="-60" max="0" step="1" value="-20" /><span class="val" id="val-comp-thresh">-20</span></div>
+          <div class="fx-row"><label>RATIO</label><input type="range" id="comp-ratio" min="1" max="20" step="0.5" value="4" /><span class="val" id="val-comp-ratio">4</span></div>
+        </div>
+        <div class="fx-unit">
+          <div class="fx-title">MASTER EQ</div>
+          <div class="fx-row"><label>LO</label><input type="range" id="eq-lo" min="-12" max="12" step="0.5" value="0" /><span class="val" id="val-eq-lo">0</span></div>
+          <div class="fx-row"><label>MID</label><input type="range" id="eq-mid" min="-12" max="12" step="0.5" value="0" /><span class="val" id="val-eq-mid">0</span></div>
+          <div class="fx-row"><label>HI</label><input type="range" id="eq-hi" min="-12" max="12" step="0.5" value="0" /><span class="val" id="val-eq-hi">0</span></div>
+        </div>
+      </div>
+
+      <div class="panel-title" style="margin-top:8px">VISUALIZER</div>
+      <canvas id="visualizer" width="220" height="90"></canvas>
+      <div class="viz-buttons">
+        <button class="viz-btn active" data-viz="wave">WAVE</button>
+        <button class="viz-btn" data-viz="freq">FREQ</button>
+        <button class="viz-btn" data-viz="circle">CIRCLE</button>
+        <button class="viz-btn" data-viz="3d">3D</button>
+      </div>
+      <div class="panel-title" style="margin-top:8px">SPECTRUM</div>
+      <canvas id="spectrum-meter" width="220" height="55"></canvas>
+    </aside>
+  </main>
+
+  <footer id="status-bar">
+    <span id="status-msg">READY</span>
+    <div class="status-center">
+      <span id="status-cpu">CPU: --</span>
+      <span class="status-sep">|</span>
+      <span id="status-notes">Notes: 0</span>
+      <span class="status-sep">|</span>
+      <span id="status-latency">Latency: --ms</span>
+    </div>
+    <span id="status-right">SYNTHWAVE DAW v2.0 | Web Audio API</span>
+  </footer>
+
+  <script src="js/audio.js"></script>
+  <script src="js/sequencer.js"></script>
+  <script src="js/piano-roll.js"></script>
+  <script src="js/mixer.js"></script>
+  <script src="js/visualizer.js"></script>
+  <script src="js/export.js"></script>
+  <script src="js/project.js"></script>
+  <script src="js/arpeggiator.js"></script>
+  <script src="js/patterns.js"></script>
+  <script src="js/synth-ui.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

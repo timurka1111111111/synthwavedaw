@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>О проекте — SYNTHWAVE DAW</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/site.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-dot"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo"><span class="s">S</span><span class="r">YNTH</span><span class="w">W</span><span class="r">AVE</span><span class="tag">DAW</span></a>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html" class="nav-link">Главная</a>
+    <a href="about.html" class="nav-link active">О проекте</a>
+    <a href="contacts.html" class="nav-link">Контакты</a>
+    <a href="daw/index.html" class="nav-cta">Открыть DAW →</a>
+  </div>
+  <button class="nav-burger" id="nav-burger" aria-label="Меню"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">◈ КУРСОВОЙ ПРОЕКТ</div>
+    <h1 class="page-title">О <span>проекте</span></h1>
+    <p class="page-sub">ЧТО ЭТО, КАК УСТРОЕНО И ЗАЧЕМ</p>
+  </div>
+</section>
+
+<!-- ABOUT CONTENT -->
+<section style="padding-top: 0">
+  <div class="about-grid">
+
+    <div class="about-block reveal">
+      <div class="ab-label">Что такое DAW</div>
+      <div class="ab-title">Digital Audio Workstation</div>
+      <div class="ab-text">
+        <strong>Synthwave DAW</strong> — это полноценная цифровая звуковая рабочая станция,
+        работающая прямо в браузере. Никаких установок, плагинов и дополнительного ПО —
+        только открыл страницу и начал творить.
+        <br><br>
+        Проект вдохновлён профессиональными DAW: Ableton Live, FL Studio и Bitwig.
+        Всё реализовано на чистом JavaScript с использованием <strong>Web Audio API</strong>.
+      </div>
+    </div>
+
+    <div class="about-block reveal">
+      <div class="ab-label">Цель проекта</div>
+      <div class="ab-title">Курсовая работа</div>
+      <div class="ab-text">
+        Проект создан как курсовая работа по дисциплине <strong>«Веб-разработка»</strong>.
+        Задача — показать возможности современного браузерного API и создать
+        полнофункциональное интерактивное приложение без единой зависимости.
+        <br><br>
+        Основной акцент — на <strong>реальный звук</strong>: всё, что ты слышишь,
+        генерируется прямо в браузере в реальном времени.
+      </div>
+    </div>
+
+    <div class="about-block reveal">
+      <div class="ab-label">Технологии</div>
+      <div class="ab-title">Стек проекта</div>
+      <div class="ab-text">Никаких фреймворков — только ванильный стек:</div>
+      <div class="tech-stack">
+        <span class="tech-tag">HTML5</span>
+        <span class="tech-tag">CSS3</span>
+        <span class="tech-tag">Vanilla JS</span>
+        <span class="tech-tag">Web Audio API</span>
+        <span class="tech-tag">Canvas 2D</span>
+        <span class="tech-tag">MediaRecorder API</span>
+        <span class="tech-tag">localStorage</span>
+        <span class="tech-tag">Web Fonts</span>
+        <span class="tech-tag">CSS Animations</span>
+        <span class="tech-tag">CSS Grid</span>
+      </div>
+    </div>
+
+    <div class="about-block reveal">
+      <div class="ab-label">Структура</div>
+      <div class="ab-title">Архитектура</div>
+      <div class="ab-text">Проект разделён на независимые модули:</div>
+      <ul class="timeline">
+        <li data-v="audio.js">Звуковой движок (синтез, FX)</li>
+        <li data-v="sequencer.js">Step Sequencer (ритм-паттерны)</li>
+        <li data-v="piano-roll.js">Piano Roll (мелодия)</li>
+        <li data-v="mixer.js">Микшер (баланс треков)</li>
+        <li data-v="export.js">Запись и экспорт WAV</li>
+        <li data-v="project.js">Сохранение / загрузка проекта</li>
+        <li data-v="arpeggiator.js">Арпеджиатор</li>
+        <li data-v="visualizer.js">Визуализатор звука</li>
+        <li data-v="patterns.js">Менеджер сцен</li>
+        <li data-v="synth-ui.js">Canvas-превью синтезатора</li>
+      </ul>
+    </div>
+
+    <div class="about-block reveal" style="grid-column: 1 / -1">
+      <div class="ab-label">Как работает звук</div>
+      <div class="ab-title">Web Audio API под капотом</div>
+      <div class="ab-text">
+        Весь звук строится через граф аудио-нод. Каждая нота — это <strong>OscillatorNode</strong>
+        с огибающей (GainNode + ADSR). Ноды соединяются в цепочку:
+        <br><br>
+        <code style="font-family:var(--font-mono);font-size:11px;color:var(--accent);background:rgba(0,245,255,0.06);padding:8px 14px;display:block;border-radius:3px;margin:12px 0;letter-spacing:1px">
+          OSC → Filter → ADSR Gain → FX Chain → Master Gain → Analyser → Destination
+        </code>
+        Drum-звуки генерируются процедурно: кик — frequency sweep на OscillatorNode,
+        снейр — белый шум через BufferSource + highpass фильтр,
+        хэты — отфильтрованный шум с короткой огибающей.
+        <br><br>
+        Реверб реализован через <strong>ConvolverNode</strong> с процедурно сгенерированным
+        импульсным откликом (Impulse Response). Delay — через DelayNode + обратная связь.
+        Запись в WAV — через <strong>MediaRecorder API</strong> + декодирование и конвертация в PCM.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">SYNTHWAVE DAW</div>
+  <div class="footer-links">
+    <a href="index.html" class="footer-link">Главная</a>
+    <a href="about.html" class="footer-link">О проекте</a>
+    <a href="contacts.html" class="footer-link">Контакты</a>
+    <a href="daw/index.html" class="footer-link">DAW</a>
+  </div>
+  <div class="footer-copy">© 2024 — Курсовой проект</div>
+</footer>
+
+<script src="js/site.js"></script>
+</body>
+</html>

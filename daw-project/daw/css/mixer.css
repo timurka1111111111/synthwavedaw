@@ -1,0 +1,149 @@
+/* ═══════════════════════════════════════
+   MIXER STYLES
+   ═══════════════════════════════════════ */
+
+#tab-mixer {
+  flex-direction: row !important;
+  overflow-x: auto; overflow-y: hidden;
+  padding: 12px;
+  gap: 6px;
+  align-items: flex-end;
+  background: var(--bg);
+}
+
+#mixer-channels {
+  display: flex; gap: 6px; align-items: flex-end;
+}
+
+.mixer-master-strip { flex-shrink: 0; }
+
+/* ── CHANNEL STRIP ── */
+.mixer-channel {
+  display: flex; flex-direction: column;
+  align-items: center;
+  width: 62px; flex-shrink: 0;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 6px;
+  gap: 6px;
+  transition: border-color 0.1s;
+}
+.mixer-channel:hover { border-color: var(--text-dim); }
+.mixer-channel.master { border-color: var(--accent3); }
+.mixer-channel.master .ch-label { color: var(--accent3); }
+
+.ch-label {
+  font-family: var(--font-mono);
+  font-size: 9px; color: var(--text-dim);
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  width: 100%;
+}
+
+/* EQ mini knobs row */
+.ch-eq {
+  display: flex; gap: 3px;
+}
+.ch-eq-knob {
+  width: 16px; height: 16px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  position: relative; cursor: pointer;
+  transition: border-color 0.1s;
+}
+.ch-eq-knob:hover { border-color: var(--accent); }
+.ch-eq-knob::after {
+  content: '';
+  position: absolute; top: 2px; left: 50%; transform: translateX(-50%);
+  width: 2px; height: 5px;
+  background: var(--text-dim);
+  border-radius: 1px;
+}
+
+/* PAN */
+.ch-pan-wrap {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  width: 100%;
+}
+.ch-pan-wrap label { font-family: var(--font-mono); font-size: 8px; color: var(--text-dim); }
+.ch-pan {
+  -webkit-appearance: none; width: 100%; height: 3px;
+  background: var(--border); border-radius: 2px; cursor: pointer;
+}
+.ch-pan::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 10px; height: 10px;
+  border-radius: 50%; background: var(--accent4);
+  box-shadow: 0 0 6px rgba(251,191,36,0.5); cursor: pointer;
+}
+
+/* FADER + VU */
+.ch-fader-wrap {
+  display: flex; gap: 4px; align-items: flex-end;
+  height: 160px;
+}
+.ch-vu-pair { display: flex; gap: 2px; align-items: flex-end; height: 100%; }
+.ch-vu {
+  width: 5px; height: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  position: relative; overflow: hidden;
+}
+.ch-vu::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 5%;
+  background: linear-gradient(to top, var(--green) 0%, var(--accent4) 70%, var(--accent2) 100%);
+  transition: height 0.05s linear;
+  border-radius: 1px;
+}
+
+/* Fader vertical */
+.ch-fader {
+  -webkit-appearance: slider-vertical;
+  writing-mode: vertical-lr;
+  direction: rtl;
+  width: 20px; height: 100%;
+  background: var(--border);
+  cursor: pointer;
+  border-radius: 2px;
+}
+.ch-fader::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 30px; height: 10px;
+  background: linear-gradient(90deg, var(--bg3), var(--text-dim));
+  border: 1px solid var(--text-dim);
+  border-radius: 2px;
+  cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+.ch-fader:hover::-webkit-slider-thumb { background: linear-gradient(90deg, var(--bg3), var(--accent)); border-color: var(--accent); }
+
+/* dB readout */
+.ch-db {
+  font-family: var(--font-mono); font-size: 9px;
+  color: var(--green); text-align: center;
+}
+
+/* Solo / Mute at bottom */
+.ch-buttons { display: flex; gap: 3px; }
+.ch-btn {
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text-dim); font-family: var(--font-mono); font-size: 8px;
+  width: 24px; height: 18px; cursor: pointer; border-radius: 2px;
+  transition: all 0.1s;
+}
+.ch-btn.solo  { }
+.ch-btn.mute  { }
+.ch-btn.solo:hover, .ch-btn.solo.active  { background: var(--accent4); border-color: var(--accent4); color: #000; }
+.ch-btn.mute:hover, .ch-btn.mute.active  { background: var(--accent2); border-color: var(--accent2); color: #fff; }
+
+/* Send knobs */
+.ch-send {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  width: 100%;
+}
+.ch-send label { font-family: var(--font-mono); font-size: 8px; color: var(--text-dim); }
+.ch-send input  { width: 100%; }

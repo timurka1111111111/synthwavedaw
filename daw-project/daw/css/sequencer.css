@@ -1,0 +1,123 @@
+/* ═══════════════════════════════════════
+   SEQUENCER STYLES
+   ═══════════════════════════════════════ */
+
+.seq-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0,0,0,0.2);
+}
+.seq-steps-label { display: flex; align-items: center; gap: 6px; }
+.seq-steps-label span { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); }
+.seq-steps-btn {
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text-dim); font-family: var(--font-mono); font-size: 10px;
+  padding: 2px 8px; cursor: pointer; border-radius: 2px; transition: all 0.1s;
+}
+.seq-steps-btn:hover  { border-color: var(--accent); color: var(--accent); }
+.seq-steps-btn.active { background: var(--accent3); border-color: var(--accent3); color: #fff; }
+
+.seq-swing { display: flex; align-items: center; gap: 6px; }
+.seq-swing label { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); }
+.seq-swing input { width: 80px; }
+
+#sequencer-grid {
+  flex: 1; overflow-y: auto; overflow-x: auto;
+  padding: 8px 0;
+}
+
+.seq-beat-numbers {
+  display: flex;
+  padding: 0 12px 4px;
+  gap: 2px;
+}
+.seq-beat-num {
+  font-family: var(--font-mono); font-size: 8px;
+  color: var(--text-dim); text-align: center; flex: 1;
+  min-width: 22px;
+}
+.seq-beat-num.beat-marker { color: var(--accent); }
+
+/* ── ROW ── */
+.seq-row {
+  display: flex; align-items: center;
+  padding: 3px 12px;
+  gap: 4px;
+  transition: background 0.1s;
+}
+.seq-row:hover { background: rgba(255,255,255,0.02); }
+
+.seq-row-label {
+  width: 70px; flex-shrink: 0;
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--text-dim);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.seq-row-vol {
+  width: 50px; flex-shrink: 0;
+}
+.seq-row-vol input { width: 100%; height: 3px; }
+
+.seq-steps {
+  display: flex; gap: 2px; flex: 1;
+  overflow: hidden;
+}
+
+/* ── STEP BUTTON ── */
+.step-btn {
+  flex: 1; min-width: 20px; max-width: 40px;
+  height: var(--track-h);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.1s, border-color 0.1s, transform 0.05s;
+  overflow: hidden;
+}
+.step-btn::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, transparent 100%);
+}
+.step-btn:hover { border-color: var(--text-dim); background: var(--bg2); }
+
+/* GROUP SEPARATORS every 4 steps */
+.step-btn.group-start { margin-left: 4px; }
+
+/* ACTIVE state */
+.step-btn.on {
+  border-color: transparent;
+  transform: scaleY(0.95);
+}
+
+/* Velocity shade inside step */
+.step-vel {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: rgba(0,0,0,0.4);
+  border-radius: 0 0 2px 2px;
+}
+
+/* CURRENT PLAYHEAD step */
+.step-btn.playing {
+  outline: 2px solid rgba(255,255,255,0.8);
+  outline-offset: -2px;
+}
+
+/* Per-track accent colors */
+.seq-row[data-track="0"] .step-btn.on { background: var(--accent2); box-shadow: 0 0 8px rgba(255,107,107,0.5); }
+.seq-row[data-track="1"] .step-btn.on { background: var(--accent);  box-shadow: 0 0 8px rgba(78,205,196,0.4); }
+.seq-row[data-track="2"] .step-btn.on { background: var(--accent3); box-shadow: 0 0 8px rgba(167,139,250,0.4); }
+.seq-row[data-track="3"] .step-btn.on { background: var(--accent4); box-shadow: 0 0 8px rgba(251,191,36,0.4);  }
+.seq-row[data-track="4"] .step-btn.on { background: var(--green);   box-shadow: 0 0 8px rgba(74,222,128,0.4); }
+.seq-row[data-track="5"] .step-btn.on { background: var(--orange);  box-shadow: 0 0 8px rgba(255,107,0,0.4);  }
+
+/* Right-click velocity indicator */
+.step-btn .vel-bar {
+  position: absolute; bottom: 2px; left: 2px; right: 2px;
+  height: 4px; background: rgba(255,255,255,0.3);
+  border-radius: 2px; display: none;
+}
+.step-btn.on .vel-bar { display: block; }

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Контакты — SYNTHWAVE DAW</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/site.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-dot"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo"><span class="s">S</span><span class="r">YNTH</span><span class="w">W</span><span class="r">AVE</span><span class="tag">DAW</span></a>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html" class="nav-link">Главная</a>
+    <a href="about.html" class="nav-link">О проекте</a>
+    <a href="contacts.html" class="nav-link active">Контакты</a>
+    <a href="daw/index.html" class="nav-cta">Открыть DAW →</a>
+  </div>
+  <button class="nav-burger" id="nav-burger" aria-label="Меню"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="hero-grid"></div>
+  <div class="orb orb-1" style="background:rgba(255,0,110,0.1)"></div>
+  <div class="orb orb-2" style="background:rgba(123,0,255,0.1)"></div>
+  <div class="hero-content">
+    <div class="hero-badge">◈ СВЯЗЬ С КОМАНДОЙ</div>
+    <h1 class="page-title"><span>Контакты</span></h1>
+    <p class="page-sub">НАЙДИ НАС В СЕТИ</p>
+  </div>
+</section>
+
+<section style="padding-top: 0">
+  <div class="contacts-wrap">
+
+    <!-- CONTACT CARDS -->
+    <div class="section-label" style="text-align:left;margin-bottom:24px">Автор проекта</div>
+
+    <a href="mailto:student@university.ru" class="contact-card reveal">
+      <div class="cc-icon">📧</div>
+      <div>
+        <div class="cc-label">EMAIL</div>
+        <div class="cc-value">student@university.ru</div>
+        <div class="cc-desc">Напиши по любому вопросу о проекте</div>
+      </div>
+    </a>
+
+    <a href="https://t.me/synthwave_daw" class="contact-card reveal" style="border-color:rgba(0,245,255,0.15)">
+      <div class="cc-icon">✈️</div>
+      <div>
+        <div class="cc-label">TELEGRAM</div>
+        <div class="cc-value">@synthwave_daw</div>
+        <div class="cc-desc">Быстрый ответ — обычно до 24 часов</div>
+      </div>
+    </a>
+
+    <a href="https://github.com/synthwave-daw" class="contact-card reveal" style="border-color:rgba(123,0,255,0.2)">
+      <div class="cc-icon">🐙</div>
+      <div>
+        <div class="cc-label">GITHUB</div>
+        <div class="cc-value">github.com/synthwave-daw</div>
+        <div class="cc-desc">Исходный код проекта, issues, pull requests</div>
+      </div>
+    </a>
+
+    <a href="#" class="contact-card reveal" style="border-color:rgba(255,221,0,0.15)">
+      <div class="cc-icon">🎓</div>
+      <div>
+        <div class="cc-label">УНИВЕРСИТЕТ</div>
+        <div class="cc-value">Кафедра информатики и вычислительной техники</div>
+        <div class="cc-desc">Курсовой проект по дисциплине «Веб-разработка», 2024</div>
+      </div>
+    </a>
+
+    <!-- FORM -->
+    <div class="form-wrap reveal">
+      <div class="form-title">НАПИСАТЬ СООБЩЕНИЕ</div>
+      <div class="form-row">
+        <label>ИМЯ</label>
+        <input type="text" placeholder="Как тебя зовут?" id="f-name" />
+      </div>
+      <div class="form-row">
+        <label>EMAIL</label>
+        <input type="email" placeholder="твой@email.ru" id="f-email" />
+      </div>
+      <div class="form-row">
+        <label>ТЕМА</label>
+        <input type="text" placeholder="Вопрос по проекту / Нашёл баг / Предложение..." id="f-subject" />
+      </div>
+      <div class="form-row">
+        <label>СООБЩЕНИЕ</label>
+        <textarea rows="5" placeholder="Пиши всё что думаешь..." id="f-message"></textarea>
+      </div>
+      <button class="form-submit" onclick="submitForm()">ОТПРАВИТЬ →</button>
+      <div id="form-result" style="margin-top:14px;font-family:var(--font-mono);font-size:11px;color:var(--green);display:none">
+        ✓ Сообщение отправлено! Ответим в ближайшее время.
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div style="margin-top:60px">
+      <div class="section-label" style="text-align:left;margin-bottom:24px">Частые вопросы</div>
+
+      <div class="about-block reveal" style="margin-bottom:10px">
+        <div class="ab-label">Вопрос</div>
+        <div class="ab-title" style="font-size:15px">Почему нет звука?</div>
+        <div class="ab-text">Браузер блокирует Web Audio до первого взаимодействия пользователя. Нажми PLAY или любую кнопку — звук появится.</div>
+      </div>
+
+      <div class="about-block reveal" style="margin-bottom:10px">
+        <div class="ab-label">Вопрос</div>
+        <div class="ab-title" style="font-size:15px">Как сохранить проект?</div>
+        <div class="ab-text">Нажми FILE в верхнем меню DAW → Save JSON или Save to Browser. JSON можно загрузить обратно через "Открыть проект" на главной странице.</div>
+      </div>
+
+      <div class="about-block reveal" style="margin-bottom:10px">
+        <div class="ab-label">Вопрос</div>
+        <div class="ab-title" style="font-size:15px">Какой браузер нужен?</div>
+        <div class="ab-text">Любой современный: Chrome 90+, Firefox 88+, Edge 90+, Safari 14.1+. Web Audio API и MediaRecorder поддерживаются везде.</div>
+      </div>
+
+      <div class="about-block reveal">
+        <div class="ab-label">Вопрос</div>
+        <div class="ab-title" style="font-size:15px">Можно ли использовать код?</div>
+        <div class="ab-text">Да, проект открытый. Смотри исходники на GitHub, бери, изучай, вдохновляйся. Ссылку на оригинал будем рады видеть.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">SYNTHWAVE DAW</div>
+  <div class="footer-links">
+    <a href="index.html" class="footer-link">Главная</a>
+    <a href="about.html" class="footer-link">О проекте</a>
+    <a href="contacts.html" class="footer-link">Контакты</a>
+    <a href="daw/index.html" class="footer-link">DAW</a>
+  </div>
+  <div class="footer-copy">© 2024 — Курсовой проект</div>
+</footer>
+
+<script src="js/site.js"></script>
+<script>
+  function submitForm() {
+    const name = document.getElementById('f-name').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const msg = document.getElementById('f-message').value.trim();
+    if (!name || !email || !msg) { alert('Заполни все обязательные поля'); return; }
+    document.getElementById('form-result').style.display = 'block';
+    document.getElementById('f-name').value = '';
+    document.getElementById('f-email').value = '';
+    document.getElementById('f-subject').value = '';
+    document.getElementById('f-message').value = '';
+  }
+</script>
+</body>
+</html>

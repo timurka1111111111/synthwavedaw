@@ -1,0 +1,91 @@
+/* ═══════════════════════════════════════
+   PIANO ROLL STYLES
+   ═══════════════════════════════════════ */
+
+#tab-piano-roll {
+  overflow: hidden;
+}
+
+.piano-roll-toolbar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0,0,0,0.2);
+}
+
+.pr-tool {
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text-dim); font-family: var(--font-mono); font-size: 10px;
+  padding: 3px 8px; cursor: pointer; border-radius: 2px;
+  transition: all 0.1s;
+}
+.pr-tool:hover  { border-color: var(--accent); color: var(--accent); }
+.pr-tool.active { background: var(--accent3); border-color: var(--accent3); color: #fff; }
+
+.pr-zoom {
+  display: flex; align-items: center; gap: 6px;
+  margin-left: auto;
+}
+.pr-zoom label { font-family: var(--font-mono); font-size: 9px; color: var(--text-dim); }
+.pr-zoom input  { width: 70px; }
+
+.pr-octave {
+  display: flex; align-items: center; gap: 4px;
+}
+.pr-octave button {
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text); font-size: 14px;
+  width: 22px; height: 22px; cursor: pointer;
+  border-radius: 2px; display: flex; align-items: center; justify-content: center;
+  transition: all 0.1s;
+}
+.pr-octave button:hover { border-color: var(--accent); color: var(--accent); }
+#pr-oct-label {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--accent4); min-width: 40px; text-align: center;
+}
+
+/* ── PIANO ROLL BODY ── */
+#piano-roll-wrap {
+  display: flex; flex: 1; overflow: hidden;
+}
+
+/* Keyboard sidebar */
+#piano-keys-sidebar {
+  width: 42px; flex-shrink: 0;
+  overflow: hidden;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+}
+
+.pk-key {
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: flex-end;
+  padding-right: 4px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  cursor: pointer;
+  font-family: var(--font-mono); font-size: 7px;
+  transition: background 0.1s;
+}
+.pk-key.white {
+  background: linear-gradient(90deg, #1a1a28 0%, #232338 100%);
+  color: var(--text-dim);
+}
+.pk-key.black {
+  background: linear-gradient(90deg, #0a0a10 0%, #111120 100%);
+  color: transparent;
+}
+.pk-key.white:hover { background: rgba(0,245,255,0.12); color: var(--accent); }
+.pk-key.black:hover { background: rgba(0,245,255,0.08); }
+.pk-key.pressed { background: var(--accent) !important; color: #000 !important; }
+
+/* Canvas */
+#piano-roll-canvas-wrap {
+  flex: 1; overflow: auto;
+  position: relative;
+}
+#piano-roll-canvas {
+  display: block;
+  cursor: crosshair;
+}

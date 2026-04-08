@@ -1,0 +1,413 @@
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — адаптив для всего сайта
+   Брейкпоинты:
+   - 1200px  desktop large
+   - 1024px  desktop
+   -  768px  tablet
+   -  480px  mobile large
+   -  360px  mobile small
+   ═══════════════════════════════════════════════ */
+
+/* ────────────────────────────────────────────
+   САЙТ (index.html, about.html, contacts.html)
+   ──────────────────────────────────────────── */
+
+/* На мобиле курсор не нужен */
+@media (hover: none) and (pointer: coarse) {
+  body { cursor: auto; }
+  #cursor, #cursor-dot { display: none; }
+  a, button { cursor: pointer; }
+}
+
+/* ── DESKTOP LARGE (≤1200px) ── */
+@media (max-width: 1200px) {
+  nav { padding: 0 28px; }
+  section { padding: 80px 32px; }
+  footer  { padding: 28px 32px; }
+  .hero-title { font-size: clamp(44px, 9vw, 96px); }
+  .features-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ── TABLET (≤1024px) ── */
+@media (max-width: 1024px) {
+  .nav-links { gap: 2px; }
+  .nav-link  { padding: 5px 8px; font-size: 9px; }
+  .nav-cta   { padding: 7px 14px; font-size: 9px; }
+
+  .hero-stats { gap: 32px; }
+  .stat-num   { font-size: 26px; }
+
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-grid    { grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  .hero-actions { gap: 10px; }
+  .btn-primary, .btn-secondary, .btn-ghost { padding: 13px 22px; font-size: 10px; }
+}
+
+/* ── TABLET PORTRAIT (≤768px) ── */
+@media (max-width: 768px) {
+  /* NAV */
+  nav { padding: 0 20px; height: 56px; }
+  .nav-logo .tag { display: none; }
+
+  /* Hamburger menu */
+  .nav-links {
+    position: fixed; top: 56px; left: 0; right: 0;
+    background: rgba(7,7,15,0.97);
+    border-bottom: 1px solid rgba(0,245,255,0.12);
+    flex-direction: column; align-items: stretch; gap: 0;
+    padding: 12px 0;
+    display: none; z-index: 999;
+    backdrop-filter: blur(20px);
+  }
+  .nav-links.open { display: flex; }
+  .nav-link {
+    padding: 14px 24px; font-size: 11px; letter-spacing: 3px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .nav-cta {
+    margin: 12px 20px 4px; padding: 12px; text-align: center;
+    font-size: 11px; border-radius: 3px;
+  }
+
+  /* Hamburger button */
+  .nav-burger {
+    display: flex; flex-direction: column; gap: 5px; cursor: pointer;
+    padding: 8px; background: none; border: none;
+  }
+  .nav-burger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--text); border-radius: 1px;
+    transition: all 0.3s;
+  }
+  .nav-burger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .nav-burger.open span:nth-child(2) { opacity: 0; }
+  .nav-burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+  /* HERO */
+  #hero { padding: 80px 20px 50px; }
+  .hero-title { letter-spacing: -1px; }
+  .hero-sub   { font-size: 14px; letter-spacing: 4px; margin-bottom: 36px; }
+  .hero-badge { font-size: 9px; letter-spacing: 3px; }
+
+  .hero-actions { flex-direction: column; align-items: center; gap: 10px; width: 100%; max-width: 300px; margin: 0 auto; }
+  .btn-primary, .btn-secondary, .btn-ghost { width: 100%; justify-content: center; padding: 14px 20px; }
+
+  .hero-stats { gap: 24px; flex-wrap: wrap; justify-content: center; margin-top: 48px; }
+  .stat { min-width: 80px; }
+  .stat-num { font-size: 24px; }
+  .stat-label { font-size: 8px; }
+
+  /* SECTIONS */
+  section { padding: 64px 20px; }
+  .section-title { font-size: clamp(24px, 6vw, 36px); margin-bottom: 40px; }
+
+  /* FEATURES */
+  .features-grid { grid-template-columns: 1fr 1fr; gap: 0; }
+  .feature-card  { padding: 24px 20px; }
+  .fi  { font-size: 24px; margin-bottom: 10px; }
+  .fn  { font-size: 11px; }
+  .fd  { font-size: 13px; }
+
+  /* ABOUT */
+  .about-grid { grid-template-columns: 1fr; gap: 16px; }
+  .about-block { padding: 24px 20px; }
+  .about-hero  { padding: 100px 20px 40px; min-height: 40vh; }
+  .page-title  { font-size: clamp(36px, 10vw, 60px); }
+
+  /* CONTACTS */
+  .contacts-wrap { padding: 0; }
+  .contact-card  { padding: 20px; gap: 16px; }
+  .cc-icon  { font-size: 24px; }
+  .cc-value { font-size: 13px; }
+  .form-wrap { padding: 24px 20px; }
+
+  /* RECENT */
+  .recent-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+
+  /* FOOTER */
+  footer { flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px 20px; }
+  .footer-links { flex-wrap: wrap; gap: 14px; }
+
+  /* MARQUEE */
+  .marquee { animation-duration: 14s; }
+}
+
+/* ── MOBILE (≤480px) ── */
+@media (max-width: 480px) {
+  .nav-logo { font-size: 14px; }
+
+  .hero-title { font-size: clamp(38px, 12vw, 56px); letter-spacing: -1px; }
+  .hero-sub   { font-size: 12px; letter-spacing: 3px; }
+  .hero-badge { font-size: 8px; padding: 4px 10px; letter-spacing: 2px; }
+
+  .hero-stats { gap: 16px; }
+  .stat-num   { font-size: 22px; }
+
+  .features-grid { grid-template-columns: 1fr; }
+  .feature-card  { padding: 20px 16px; }
+
+  .recent-grid { grid-template-columns: 1fr; }
+
+  section { padding: 48px 16px; }
+  .section-title { font-size: 24px; }
+
+  .contact-card { flex-direction: column; gap: 12px; }
+  .about-block  { padding: 20px 16px; }
+
+  .btn-primary, .btn-secondary, .btn-ghost { font-size: 10px; padding: 13px 16px; }
+
+  footer { padding: 20px 16px; }
+
+  /* Убираем 3D waterfall на слабых устройствах */
+  .viz-btn[data-viz="3d"] { display: none; }
+}
+
+/* ── MOBILE SMALL (≤360px) ── */
+@media (max-width: 360px) {
+  nav { padding: 0 14px; }
+  .nav-logo { font-size: 13px; letter-spacing: 1px; }
+  section { padding: 40px 14px; }
+  footer  { padding: 18px 14px; }
+  .hero-title { font-size: 34px; }
+}
+
+
+/* ──────────────────────────────────────────────
+   DAW (daw/index.html) — адаптив
+   DAW сложнее: на планшете — скрываем боковые панели
+   в выдвижные ящики, на мобиле — стек-лейаут
+   ────────────────────────────────────────────── */
+
+/* ── TABLET DAW (≤1100px) ── */
+@media (max-width: 1100px) {
+  #header { padding: 0 10px; gap: 10px; }
+  .logo   { font-size: 14px; }
+  .logo-daw { display: none; }
+  .menubar { gap: 1px; }
+  .menu-btn { padding: 4px 6px; font-size: 8px; }
+
+  /* Скрываем правую панель — только иконка */
+  #panel-right {
+    width: 40px; overflow: hidden;
+    transition: width 0.3s ease;
+    position: relative;
+  }
+  #panel-right.open { width: 240px; }
+  #panel-right .panel-title { writing-mode: vertical-rl; padding: 12px 8px; letter-spacing: 2px; cursor: pointer; }
+  #panel-right.open .panel-title { writing-mode: horizontal-tb; }
+  #panel-right .fx-chain,
+  #panel-right canvas,
+  #panel-right .viz-buttons,
+  #panel-right #spectrum-meter { display: none; }
+  #panel-right.open .fx-chain,
+  #panel-right.open canvas,
+  #panel-right.open .viz-buttons,
+  #panel-right.open #spectrum-meter { display: block; }
+
+  /* Левая панель чуть уже */
+  #panel-left { width: 190px; }
+  #app { grid-template-columns: 190px 1fr 40px; }
+}
+
+/* ── TABLET PORTRAIT DAW (≤900px) ── */
+@media (max-width: 900px) {
+  /* Скрываем обе боковые панели, DAW занимает всю ширину */
+  #app { grid-template-columns: 1fr; grid-template-rows: auto 1fr; position: relative; }
+
+  #panel-left, #panel-right {
+    position: fixed; top: 58px; bottom: 26px;
+    z-index: 500; width: 260px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    background: var(--panel);
+    overflow-y: auto;
+    box-shadow: 4px 0 30px rgba(0,0,0,0.8);
+  }
+  #panel-left.open  { transform: translateX(0); left: 0; }
+  #panel-right {
+    left: auto; right: 0;
+    transform: translateX(100%);
+    box-shadow: -4px 0 30px rgba(0,0,0,0.8);
+  }
+  #panel-right.open { transform: translateX(0); }
+  #panel-right .panel-title { writing-mode: horizontal-tb; }
+  #panel-right .fx-chain,
+  #panel-right canvas,
+  #panel-right .viz-buttons,
+  #panel-right #spectrum-meter { display: block; }
+
+  #panel-center { grid-column: 1; }
+
+  /* Панель-оверлей при открытой боковой */
+  #panel-overlay {
+    display: none; position: fixed; inset: 0; z-index: 499;
+    background: rgba(0,0,0,0.5); backdrop-filter: blur(2px);
+  }
+  #panel-overlay.visible { display: block; }
+
+  /* Кнопки открытия панелей в хедере */
+  .daw-panel-btn {
+    display: flex !important;
+    background: var(--bg3); border: 1px solid var(--border);
+    color: var(--text-dim); font-family: var(--font-mono); font-size: 9px;
+    padding: 4px 8px; border-radius: 2px; cursor: pointer; gap: 4px; align-items: center;
+    transition: all 0.15s;
+  }
+  .daw-panel-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .daw-panel-btn.active { background: rgba(0,245,255,0.1); border-color: var(--accent); color: var(--accent); }
+
+  /* Хедер — убираем второстепенные элементы */
+  .bar-display   { display: none; }
+  .timesig-control { display: none; }
+  .vu-master     { display: none; }
+  .master-vol-wrap { display: none; }
+
+  /* BPM компактнее */
+  .bpm-control input[type=number] { width: 44px; font-size: 14px; }
+}
+
+/* ── MOBILE DAW (≤600px) ── */
+@media (max-width: 600px) {
+  #header {
+    height: auto; min-height: 52px;
+    flex-wrap: wrap; padding: 8px 10px; gap: 6px;
+  }
+  .logo { font-size: 13px; letter-spacing: 1px; }
+
+  /* Транспорт компактный */
+  .btn-transport { width: 30px; height: 28px; font-size: 12px; }
+  .transport     { gap: 3px; }
+
+  /* BPM */
+  .bpm-control label { display: none; }
+  .bpm-control input[type=number] { width: 40px; font-size: 13px; }
+
+  /* Время — маленькое */
+  .time-display { font-size: 12px; padding: 3px 6px; min-width: auto; letter-spacing: 1px; }
+
+  /* Меню */
+  .menubar   { order: 10; width: 100%; justify-content: space-between; }
+  .menu-btn  { flex: 1; text-align: center; padding: 5px 4px; font-size: 8px; }
+
+  /* Экспорт */
+  .btn-export { padding: 4px 8px; }
+  .btn-export .rec-label { display: none; }
+  .btn-export .rec-time  { display: none; }
+
+  /* Tabs */
+  .tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { font-size: 9px; padding: 8px 10px; white-space: nowrap; letter-spacing: 1px; }
+
+  /* Seq header */
+  .seq-header { flex-wrap: wrap; gap: 6px; padding: 6px 8px; }
+  .seq-steps-label span { display: none; }
+  .seq-swing label { font-size: 8px; }
+  .seq-swing input  { width: 60px; }
+  .val { font-size: 8px; width: 28px; }
+
+  /* Seq grid */
+  #sequencer-grid { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .seq-row { padding: 2px 8px; gap: 3px; }
+  .seq-row-label { width: 50px; font-size: 9px; }
+  .step-btn { min-width: 18px; max-width: 32px; height: 36px; }
+
+  /* Piano roll */
+  .piano-roll-toolbar { flex-wrap: wrap; gap: 6px; padding: 6px 8px; }
+  .pr-tool { font-size: 9px; padding: 3px 6px; }
+  #piano-roll-wrap { flex-direction: column; }
+  #piano-keys-sidebar { width: 100%; height: 40px; overflow-x: auto; overflow-y: hidden; display: flex; flex-direction: row !important; }
+  .pk-key { height: 40px !important; width: 22px; flex-shrink: 0; writing-mode: horizontal-tb; font-size: 6px; align-items: flex-end; padding-bottom: 2px; }
+  .pk-key.black { width: 14px; height: 26px !important; }
+  #piano-roll-canvas-wrap { flex: 1; }
+
+  /* Mixer горизонтальный скролл */
+  #tab-mixer { overflow-x: auto; padding: 8px; }
+
+  /* Боковые панели шире на маленьком экране */
+  #panel-left, #panel-right { width: 100%; top: 0; bottom: 0; }
+
+  /* Status bar */
+  #status-bar { font-size: 8px; padding: 0 8px; }
+  .status-center { display: none; }
+  #status-right  { display: none; }
+}
+
+/* ── MOBILE SMALL DAW (≤400px) ── */
+@media (max-width: 400px) {
+  .logo { font-size: 12px; }
+  .btn-transport { width: 28px; height: 26px; font-size: 11px; }
+  .step-btn { min-width: 15px; height: 32px; border-radius: 2px; }
+  .seq-row-label { width: 40px; font-size: 8px; }
+  .tab { font-size: 8px; padding: 7px 8px; }
+}
+
+/* ── LANDSCAPE MOBILE ── */
+@media (max-width: 768px) and (orientation: landscape) {
+  #hero { min-height: auto; padding: 80px 20px 40px; }
+  .hero-title { font-size: clamp(32px, 8vw, 56px); }
+  .hero-stats { margin-top: 28px; }
+  .hero-actions { flex-direction: row; }
+
+  /* DAW в landscape — боковые панели узкие снизу */
+  #panel-left, #panel-right {
+    top: auto; bottom: 0; left: 0; right: 0;
+    width: 100%; height: 60vh;
+    transform: translateY(100%);
+  }
+  #panel-left.open  { transform: translateY(0); }
+  #panel-right.open { transform: translateY(0); }
+}
+
+/* ── PRINT ── */
+@media print {
+  #cursor, #cursor-dot, nav, footer, .hero-actions,
+  .scroll-hint, .orb, .hero-grid, #hero-canvas { display: none; }
+  body { background: #fff; color: #000; cursor: auto; }
+  section { padding: 20px 0; }
+}
+
+/* ── TOUCH IMPROVEMENTS ── */
+@media (hover: none) {
+  /* Убираем hover-эффекты на тач-устройствах (они залипают) */
+  .feature-card:hover::before { transform: scaleX(0); }
+  .feature-card:hover { background: rgba(255,255,255,0.02); }
+  .project-card:hover { transform: none; }
+  .btn-primary:hover  { transform: none; }
+  .btn-secondary:hover{ transform: none; }
+  .btn-ghost:hover    { transform: none; }
+  .contact-card:hover { transform: none; }
+  .about-block:hover  { border-color: var(--border); }
+
+  /* Увеличиваем тач-зоны */
+  .nav-link  { padding: 12px 14px; }
+  .step-btn  { min-height: 40px; }
+  .tab       { padding: 12px 14px; }
+  .proj-btn  { padding: 10px 16px; }
+  .btn-transport { width: 36px; height: 34px; }
+}
+
+/* ── OVERFLOW SCROLL SMOOTHNESS ── */
+#sequencer-grid,
+#piano-roll-canvas-wrap,
+#tab-mixer,
+#piano-keys-sidebar,
+.tabs {
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: none;
+}
+
+/* ── SAFE AREA (iPhone notch) ── */
+@supports (padding: max(0px)) {
+  nav {
+    padding-left:  max(20px, env(safe-area-inset-left));
+    padding-right: max(20px, env(safe-area-inset-right));
+  }
+  footer {
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+  }
+  #status-bar {
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+}
